@@ -1,10 +1,8 @@
-import { BasicNFT, Usdc, Banker, TokenType } from "../contracts/constant";
+import { BasicNFT, Usdc, TokenType } from "../contracts/constant";
 import { NftItem } from "./common/NftItem";
 import { TokenItem } from "./common/TokenItem";
 
-type Props = {};
-
-export function TokenList(props: Props) {
+export function TokenList() {
   const tokens = [BasicNFT, Usdc];
 
   return (
