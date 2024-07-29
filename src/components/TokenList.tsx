@@ -1,6 +1,6 @@
 import { BasicNFT, Usdc, TokenType } from "../contracts/constant";
-import { NftItem } from "./common/NftItem";
-import { TokenItem } from "./common/TokenItem";
+import { NftBalanceItem } from "./common/NftBalanceItem";
+import { TokenBalanceItem } from "./common/TokenBalanceItem";
 
 export function TokenList() {
   const tokens = [BasicNFT, Usdc];
@@ -10,7 +10,7 @@ export function TokenList() {
       {tokens.map((token) => {
         if (token.type === TokenType.NFT)
           return (
-            <NftItem
+            <NftBalanceItem
               key={token.address}
               address={token.address}
               name={token.name}
@@ -18,7 +18,7 @@ export function TokenList() {
           );
         if (token.type === TokenType.TOKEN)
           return (
-            <TokenItem
+            <TokenBalanceItem
               key={token.address}
               address={token.address}
               name={token.name}

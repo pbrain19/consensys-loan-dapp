@@ -1,18 +1,15 @@
 import { useAccount, useWaitForTransactionReceipt } from "wagmi";
-import {
-  useReadBasicNftBalanceOf,
-  useWriteBasicNftSafeMint,
-} from "../../generated";
-import { getAddress } from "viem";
-import { BasicNFT } from "../../contracts/constant";
+import { useReadUsdcBalanceOf, useWriteUsdcMint } from "../../generated";
+import { getAddress, parseEther } from "viem";
+import { Usdc } from "../../contracts/constant";
 import { useEffect } from "react";
 
 type Props = { address: string; name: string };
 
-export function NftItem(props: Props) {
+export function TokenBalanceItem(props: Props) {
   const account = useAccount();
-  const address = getAddress(account.address!);
-  const { data, refetch } = useReadBasicNftBalanceOf({
+
+  const { data, refetch } = useReadUsdcBalanceOf({
     address: getAddress(props.address),
     args: [getAddress(account.address!)],
   });
@@ -22,7 +19,7 @@ export function NftItem(props: Props) {
     isSuccess,
     isPending,
     data: hash,
-  } = useWriteBasicNftSafeMint();
+  } = useWriteUsdcMint();
 
   const { data: transactionData, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
@@ -41,13 +38,13 @@ export function NftItem(props: Props) {
       <div>{data?.toString()}</div>
       <div>
         {isSuccess ? (
-          <div>you minted a token - tx : {hash}</div>
+          <div>you minted a token</div>
         ) : (
           <button
             onClick={() => {
               writeContract({
-                address: getAddress(BasicNFT.address),
-                args: [address, BigInt(1)],
+                address: getAddress(Usdc.address),
+                args: [parseEther("100")],
               });
             }}
             disabled={isPending}

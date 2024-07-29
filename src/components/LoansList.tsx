@@ -2,7 +2,7 @@ import { getAddress } from "viem";
 import { Banker } from "../contracts/constant";
 import { useReadBankerTokensOfOwner } from "../generated";
 import { useAccount } from "wagmi";
-import { LoanItem } from "./common/LoanItem";
+import { LoanNftItem } from "./common/LoanNftItem";
 
 export function LoansList() {
   const account = useAccount();
@@ -16,7 +16,7 @@ export function LoansList() {
   return (
     <div>
       {data?.map((tokenId) => {
-        return <LoanItem tokenId={tokenId} key={tokenId.toString()} />;
+        return <LoanNftItem tokenId={tokenId} key={tokenId.toString()} />;
       })}
     </div>
   );
