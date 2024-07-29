@@ -12,6 +12,7 @@ type Props = { address: string; name: string };
 export function NftBalanceItem(props: Props) {
   const account = useAccount();
   const address = getAddress(account.address!);
+
   const { data, refetch } = useReadBasicNftBalanceOf({
     address: getAddress(props.address),
     args: [getAddress(account.address!)],
@@ -36,12 +37,16 @@ export function NftBalanceItem(props: Props) {
   }, [isConfirmed, transactionData]);
 
   return (
-    <div>
-      <div>{props.name} - </div>
-      <div>{data?.toString()}</div>
-      <div>
+    <div className="p-4 border border-gray-700 rounded-lg shadow-md bg-gray-800">
+      <div className="flex justify-between items-center">
+        <div className="text-lg font-semibold">{props.name}</div>
+        <div className="text-sm text-gray-400">
+          {data?.toString() || "Loading..."}
+        </div>
+      </div>
+      <div className="mt-4">
         {isSuccess ? (
-          <div>you minted a token - tx : {hash}</div>
+          <div className="text-green-500">You minted a token - tx: {hash}</div>
         ) : (
           <button
             onClick={() => {
@@ -51,8 +56,13 @@ export function NftBalanceItem(props: Props) {
               });
             }}
             disabled={isPending}
+            className={`px-4 py-2 rounded-md ${
+              isPending
+                ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+            }`}
           >
-            mint token
+            {isPending ? "Minting..." : "Mint Token"}
           </button>
         )}
       </div>

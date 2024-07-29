@@ -13,7 +13,7 @@ export function StakableNftList() {
   });
 
   return (
-    <div>
+    <div className="flex flex-col w-full">
       {data?.map((tokenId) => {
         return <StakableNftItem tokenId={tokenId} key={tokenId.toString()} />;
       })}

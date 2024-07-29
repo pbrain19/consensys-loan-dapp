@@ -13,7 +13,7 @@ export function LoansList() {
   });
 
   return (
-    <div>
+    <div className="flex flex-col w-full">
       {data?.map((tokenId) => {
         return <LoanNftItem tokenId={tokenId} key={tokenId.toString()} />;
       })}

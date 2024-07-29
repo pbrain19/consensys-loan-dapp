@@ -6,7 +6,7 @@ export function TokenList() {
   const tokens = [BasicNFT, Usdc];
 
   return (
-    <div>
+    <div className="flex flex-col w-full">
       {tokens.map((token) => {
         if (token.type === TokenType.NFT)
           return (

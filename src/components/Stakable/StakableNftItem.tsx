@@ -17,14 +17,18 @@ export function StakableNftItem(props: Props) {
   });
 
   return (
-    <div>
-      <div>{props.tokenId.toString()} - </div>
-      <div>
-        {data?.toString().toLowerCase() === Banker.address.toLowerCase() ? (
-          <StakeButton tokenId={props.tokenId} cb={refetch} />
-        ) : (
-          <ApproveButton tokenId={props.tokenId} cb={refetch} />
-        )}
+    <div className="p-4 border border-gray-700 rounded-lg shadow-md bg-gray-800">
+      <div className="flex justify-between items-center">
+        <div className="text-lg font-semibold">
+          {props.tokenId.toString()} -{" "}
+        </div>
+        <div>
+          {data?.toString().toLowerCase() === Banker.address.toLowerCase() ? (
+            <StakeButton tokenId={props.tokenId} cb={refetch} />
+          ) : (
+            <ApproveButton tokenId={props.tokenId} cb={refetch} />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -52,7 +56,7 @@ function ApproveButton(props: Props) {
   }, [isConfirmed, transactionData]);
 
   return isSuccess ? (
-    <div>you approved the token - tx : {hash}</div>
+    <div className="text-green-500">You approved the token - tx: {hash}</div>
   ) : (
     <button
       onClick={() => {
@@ -62,8 +66,13 @@ function ApproveButton(props: Props) {
         });
       }}
       disabled={isPending}
+      className={`px-4 py-2 rounded-md ${
+        isPending
+          ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+          : "bg-blue-500 text-white hover:bg-blue-600"
+      }`}
     >
-      approve to borrow
+      {isPending ? "Approving..." : "Approve to Borrow"}
     </button>
   );
 }
@@ -88,7 +97,7 @@ function StakeButton(props: Props) {
   }, [isConfirmed, transactionData]);
 
   return isSuccess ? (
-    <div>you borrowed money - tx : {hash}</div>
+    <div className="text-green-500">You borrowed money - tx: {hash}</div>
   ) : (
     <button
       onClick={() => {
@@ -98,8 +107,13 @@ function StakeButton(props: Props) {
         });
       }}
       disabled={isPending}
+      className={`px-4 py-2 rounded-md ${
+        isPending
+          ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+          : "bg-blue-500 text-white hover:bg-blue-600"
+      }`}
     >
-      Lock to borrow
+      {isPending ? "Locking..." : "Lock to Borrow"}
     </button>
   );
 }

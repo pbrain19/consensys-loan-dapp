@@ -19,14 +19,18 @@ export function LoanNftItem(props: Props) {
   });
 
   return (
-    <div>
-      <div>{props.tokenId.toString()} - </div>
-      <div>
-        {data && data > BigInt(0) ? (
-          <RepayButton tokenId={props.tokenId} cb={refetch} />
-        ) : (
-          <ApproveButton tokenId={props.tokenId} cb={refetch} />
-        )}
+    <div className="p-4 border border-gray-700 rounded-lg shadow-md bg-gray-800">
+      <div className="flex justify-between items-center">
+        <div className="text-lg font-semibold">
+          {props.tokenId.toString()} -{" "}
+        </div>
+        <div>
+          {data && data > BigInt(0) ? (
+            <RepayButton tokenId={props.tokenId} cb={refetch} />
+          ) : (
+            <ApproveButton tokenId={props.tokenId} cb={refetch} />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -54,7 +58,7 @@ function ApproveButton(props: Props) {
   }, [isConfirmed, transactionData]);
 
   return isSuccess ? (
-    <div>you approved the token - tx : {hash}</div>
+    <div className="text-green-500">You approved the token - tx: {hash}</div>
   ) : (
     <button
       onClick={() => {
@@ -64,8 +68,13 @@ function ApproveButton(props: Props) {
         });
       }}
       disabled={isPending}
+      className={`px-4 py-2 rounded-md ${
+        isPending
+          ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+          : "bg-blue-500 text-white hover:bg-blue-600"
+      }`}
     >
-      approve usdc to repay
+      {isPending ? "Approving..." : "Approve USDC to Repay"}
     </button>
   );
 }
@@ -89,9 +98,11 @@ function RepayButton(props: Props) {
       props.cb?.();
     }
   }, [isConfirmed, transactionData]);
+
   console.log(error);
+
   return isSuccess ? (
-    <div>you repayed your loan - tx : {hash}</div>
+    <div className="text-green-500">You repaid your loan - tx: {hash}</div>
   ) : (
     <button
       onClick={() => {
@@ -101,8 +112,13 @@ function RepayButton(props: Props) {
         });
       }}
       disabled={isPending}
+      className={`px-4 py-2 rounded-md ${
+        isPending
+          ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+          : "bg-blue-500 text-white hover:bg-blue-600"
+      }`}
     >
-      repay loan
+      {isPending ? "Repaying..." : "Repay Loan"}
     </button>
   );
 }
