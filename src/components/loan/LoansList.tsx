@@ -1,8 +1,8 @@
 import { getAddress } from "viem";
-import { Banker } from "../contracts/constant";
-import { useReadBankerTokensOfOwner } from "../generated";
+import { Banker } from "../../contracts/constant";
+import { useReadBankerTokensOfOwner } from "../../generated";
 import { useAccount } from "wagmi";
-import { LoanNftItem } from "./common/LoanNftItem";
+import { LoanNftItem } from "./LoanNftItem";
 
 export function LoansList() {
   const account = useAccount();
@@ -12,7 +12,6 @@ export function LoansList() {
     args: [getAddress(account.address!)],
   });
 
-  console.log(data);
   return (
     <div>
       {data?.map((tokenId) => {

@@ -1,6 +1,6 @@
-import { BasicNFT, Usdc, TokenType } from "../contracts/constant";
-import { NftBalanceItem } from "./common/NftBalanceItem";
-import { TokenBalanceItem } from "./common/TokenBalanceItem";
+import { BasicNFT, Usdc, TokenType } from "../../contracts/constant";
+import { NftBalanceItem } from "./NftBalanceItem";
+import { TokenBalanceItem } from "./TokenBalanceItem";
 
 export function TokenList() {
   const tokens = [BasicNFT, Usdc];
